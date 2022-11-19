@@ -86,7 +86,7 @@ function FixedPlugin(props) {
           </li>
           <li className="button-container">
             <Button
-              href="https://www.creative-tim.com/product/black-dashboard-react"
+              href="/download/"
               color="primary"
               block
               className="btn-round"
@@ -98,7 +98,7 @@ function FixedPlugin(props) {
               block
               className="btn-round"
               outline
-              href="https://demos.creative-tim.com/black-dashboard-react/#/documentation/tutorial"
+              href="/docs/"
             >
               Documentation
             </Button>
@@ -106,7 +106,7 @@ function FixedPlugin(props) {
           <li className="header-title">Want more components?</li>
           <li className="button-container">
             <Button
-              href="https://www.creative-tim.com/product/black-dashboard-pro-react"
+              href="/pricing/pro"
               className="btn-round"
               disabled
               block
