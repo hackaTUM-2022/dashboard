@@ -27,18 +27,18 @@ function Footer() {
       <Container fluid>
         <Nav>
           <NavItem>
-            <NavLink href="https://www.creative-tim.com/?ref=bdr-user-archive-footer">
-              Creative Tim
+            <NavLink href="https://hack.tum.de/">
+              hackaTUM
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="https://www.creative-tim.com/presentation?ref=bdr-user-archive-footer">
+            <NavLink href="https://hack.tum.de/faq/">
               About Us
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="https://www.creative-tim.com/blog?ref=bdr-user-archive-footer">
-              Blog
+            <NavLink href="https://hack.tum.de/contact/">
+              Contact
             </NavLink>
           </NavItem>
         </Nav>
@@ -46,12 +46,12 @@ function Footer() {
           © {new Date().getFullYear()} made with{" "}
           <i className="tim-icons icon-heart-2" /> by{" "}
           <a
-            href="https://www.creative-tim.com/?ref=bdr-user-archive-footer"
+            href="/"
             target="_blank"
           >
-            Creative Tim
+            hackaTUM Exchange
           </a>{" "}
-          for a better web.
+          for a better financial world.
         </div>
       </Container>
     </footer>
