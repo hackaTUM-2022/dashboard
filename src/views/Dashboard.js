@@ -52,6 +52,7 @@ function Dashboard(props) {
   const [qty, setQty] = useState(0.0)
   const [price, setPrice] = useState(0.0)
   const [user, setUser] = useState('')
+  const [lastOrder, setLastOrder] = useState({})
 
   // Post a Stock
   const addStockHandler = () => {
@@ -64,12 +65,14 @@ function Dashboard(props) {
     axios.post('http://131.159.213.251:8000/api/order', { 'name': name, 'side' : 'BUY', 'qty': qty, 'price': price, 'customer' : 'me' })
       .then(res => console.log(res));
       getHandler();
+      lastOrderHandler();
   };
 
   const addOrderHandlerSell = () => {
     axios.post('http://131.159.213.251:8000/api/order', { 'name': name, 'side' : 'SELL' ,'qty': qty, 'price': price, 'customer' : 'me' })
       .then(res => console.log(res));
       getHandler();
+      lastOrderHandler();
   };
 
   const getHandler = () => {
@@ -79,6 +82,12 @@ function Dashboard(props) {
       })
   };
 
+  const lastOrderHandler = () => {
+    axios.get('http://131.159.213.251:8000/api/lastorder')
+      .then(res => {
+        setLastOrder(res.data)
+      })
+  };
 
   const [bigChartData, setbigChartData] = React.useState("data1");
   const setBgChartData = (name) => {
@@ -222,9 +231,9 @@ function Dashboard(props) {
                   </thead>
                   <tbody>
                     <tr>
-                      <td>IBM</td>
-                      <td>$10,67</td>
-                      <td>100</td>
+                      <td>{lastOrder.name}</td>
+                      <td>{lastOrder.price}</td>
+                      <td>{lastOrder.qty}</td>
                     </tr>
                   </tbody>
                 </Table>

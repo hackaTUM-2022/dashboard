@@ -459,7 +459,7 @@
   }
 
   > .content {
-    padding: 78px 30px 30px 280px;
+    padding: 78px 78px;
     min-height: calc(100vh - 70px);
   }
 
@@ -708,9 +708,8 @@
 
   .menu-on-right{
     .sidebar{
-      left: auto;
+      left: 0;
       right: 0;
-      @include transform-translate-x(260px);
     }
   }
 
