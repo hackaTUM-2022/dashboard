@@ -33,6 +33,7 @@ var routes = [
     component: Dashboard,
     layout: "/admin"
   },
+  /*
   {
     path: "/icons",
     name: "Icons",
@@ -58,14 +59,6 @@ var routes = [
     layout: "/admin"
   },
   {
-    path: "/user-profile",
-    name: "User Profile",
-    rtlName: "ملف تعريفي للمستخدم",
-    icon: "tim-icons icon-single-02",
-    component: UserProfile,
-    layout: "/admin"
-  },
-  {
     path: "/tables",
     name: "Table List",
     rtlName: "قائمة الجدول",
@@ -88,6 +81,15 @@ var routes = [
     icon: "tim-icons icon-world",
     component: Rtl,
     layout: "/rtl"
+  },
+  */
+  {
+    path: "/user-profile",
+    name: "User Profile",
+    rtlName: "ملف تعريفي للمستخدم",
+    icon: "tim-icons icon-single-02",
+    component: UserProfile,
+    layout: "/admin"
   }
 ];
 export default routes;
