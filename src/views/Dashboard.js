@@ -43,9 +43,6 @@ import {
 // core components
 import {
   chartExample1,
-  chartExample2,
-  chartExample3,
-  chartExample4
 } from "variables/charts.js";
 
 function Dashboard(props) {
@@ -171,61 +168,6 @@ function Dashboard(props) {
           </Col>
         </Row>
         <Row>
-          <Col lg="4">
-            <Card className="card-chart">
-              <CardHeader>
-                <h5 className="card-category">NASDAQ Performance</h5>
-                <CardTitle tag="h3">
-                  <i className="tim-icons icon-bell-55 text-info" /> 763,215
-                </CardTitle>
-              </CardHeader>
-              <CardBody>
-                <div className="chart-area">
-                  <Line
-                    data={chartExample2.data}
-                    options={chartExample2.options}
-                  />
-                </div>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col lg="4">
-            <Card className="card-chart">
-              <CardHeader>
-                <h5 className="card-category">No. of Transactions</h5>
-                <CardTitle tag="h3">
-                  <i className="tim-icons icon-delivery-fast text-primary" />{" "}
-                  3,500€
-                </CardTitle>
-              </CardHeader>
-              <CardBody>
-                <div className="chart-area">
-                  <Bar
-                    data={chartExample3.data}
-                    options={chartExample3.options}
-                  />
-                </div>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col lg="4">
-            <Card className="card-chart">
-              <CardHeader>
-                <h5 className="card-category">Average Price</h5>
-                <CardTitle tag="h3">
-                  <i className="tim-icons icon-send text-success" /> 12,100K
-                </CardTitle>
-              </CardHeader>
-              <CardBody>
-                <div className="chart-area">
-                  <Line
-                    data={chartExample4.data}
-                    options={chartExample4.options}
-                  />
-                </div>
-              </CardBody>
-            </Card>
-          </Col>
         </Row>
         <Row>
           <Col lg="6" md="12">
@@ -240,6 +182,7 @@ function Dashboard(props) {
                 >
                   <Tab eventKey="buy" title="Buy">
                   <Form.Group className="mb-3" controlId="stockID">
+                  <Form.Label>Stock ID</Form.Label>
                   <Form.Control type="text" placeholder="enter the stock" onChange={event => setName(event.target.value)}/>
                     <Form.Label>Ask</Form.Label>
                     <Form.Control type="text" placeholder="enter your asking price" onChange={event => setPrice(event.target.value)}/>
