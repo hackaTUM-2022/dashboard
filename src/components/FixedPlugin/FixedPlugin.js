@@ -104,7 +104,7 @@ function FixedPlugin(props) {
               Documentation
             </Button>
           </li>
-          <li className="header-title">Want more components?</li>
+          <li className="header-title">Want more features?</li>
           <li className="button-container">
             <Button
               href="/pricing/pro"
