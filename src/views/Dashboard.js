@@ -46,46 +46,38 @@ import {
 } from "variables/charts.js";
 
 function Dashboard(props) {
+  const URL = "http://131.159.213.251:8000";
+
   const [stockList, setStockList] = useState([{}])
   const [pendingList, setPendingList] = useState([{}])
   const [name, setName] = useState('')
   const [qty, setQty] = useState(0.0)
   const [price, setPrice] = useState(0.0)
   const [user, setUser] = useState('')
-  const [lastOrder, setLastOrder] = useState({})
 
   // Post a Stock
   const addStockHandler = () => {
-    axios.post('http://131.159.213.251:8000/api/stock', { 'name': name, 'price': price, 'qty': qty, 'user' : 'me' })
+    axios.post(URL + '/api/stock', { 'name': name, 'price': price, 'qty': qty, 'user' : 'me' })
       .then(res => console.log(res))
   };
 
   // Post an order
   const addOrderHandlerBuy = () => {
-    axios.post('http://131.159.213.251:8000/api/order', { 'name': name, 'side' : 'BUY', 'qty': qty, 'price': price, 'customer' : 'me' })
+    axios.post(URL + '/api/order', { 'name': name, 'side' : 'BUY', 'qty': qty, 'price': price, 'customer' : 'me' })
       .then(res => console.log(res));
       getHandler();
-      lastOrderHandler();
   };
 
   const addOrderHandlerSell = () => {
-    axios.post('http://131.159.213.251:8000/api/order', { 'name': name, 'side' : 'SELL' ,'qty': qty, 'price': price, 'customer' : 'me' })
+    axios.post(URL + '/api/order', { 'name': name, 'side' : 'SELL' ,'qty': qty, 'price': price, 'customer' : 'me' })
       .then(res => console.log(res));
       getHandler();
-      lastOrderHandler();
   };
 
   const getHandler = () => {
-    axios.get('http://131.159.213.251:8000/api/order')
+    axios.get(URL + '/api/order')
       .then(res => {
         setPendingList(res.data)
-      })
-  };
-
-  const lastOrderHandler = () => {
-    axios.get('http://131.159.213.251:8000/api/lastorder')
-      .then(res => {
-        setLastOrder(res.data)
       })
   };
 
@@ -231,9 +223,9 @@ function Dashboard(props) {
                   </thead>
                   <tbody>
                     <tr>
-                      <td>{lastOrder.name}</td>
-                      <td>{lastOrder.price}</td>
-                      <td>{lastOrder.qty}</td>
+                      <td>IBM</td>
+                      <td>$11.56</td>
+                      <td>10</td>
                     </tr>
                   </tbody>
                 </Table>
@@ -249,7 +241,7 @@ function Dashboard(props) {
                     </tr>
                   </thead>
                   <tbody>
-                    <StockView stockList={pendingList} />
+                    <StockView  stockList={pendingList} />
                   </tbody>
                 </Table>
               </CardBody>

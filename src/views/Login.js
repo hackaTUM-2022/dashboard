@@ -13,6 +13,10 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
+import { Navbar, Nav } from 'react-bootstrap';
+import Dashboard from './Dashboard';
+import {  useState } from "react";
+import { BrowserRouter as Router, Switch,Route,Navigate, Redirect } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -30,18 +34,30 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Login() {
+  const [loggedIn, setLoggedIn ] = useState(false)
+
   const handleSubmit = (event) => {
     const data = new FormData(event.currentTarget);
     axios.post('http://131.159.213.251:8000/api/login', { 'username': data.get('username'), 'password': data.get('password') })
-    .then()
-    };
+    .then(res => setLoggedIn(res.status == 200));
+    }
 
   return (
+    <>
+    <Router>
+    <Switch>
+      <Route
+        exact
+        path="/"
+        element={loggedIn ? <Dashboard /> : <Redirect from={"/admin/login"} to={"/"} />}
+      />
+    </Switch>
+  </Router>
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
-          sx={{
+          sx={{ 
             marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
@@ -104,4 +120,5 @@ export default function Login() {
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
+    </>
   )};
