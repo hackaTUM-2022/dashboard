@@ -24,6 +24,7 @@ import Form from 'react-bootstrap/Form';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import axios from 'axios';
+import TodoView from '../components/TodoListView';
 
 
 // reactstrap components
@@ -34,17 +35,9 @@ import {
   CardHeader,
   CardBody,
   CardTitle,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  Label,
-  FormGroup,
-  Input,
   Table,
   Row,
   Col,
-  UncontrolledTooltip
 } from "reactstrap";
 
 // core components
@@ -62,9 +55,17 @@ function Dashboard(props) {
 
   // Post a todo
   const addTodoHandler = () => {
-    axios.post('http://localhost:8000/api/todo/', { 'title': title, 'description': desc })
+    axios.post('http://131.159.213.251:8000/api/todo/', { 'title': title, 'description': desc })
       .then(res => console.log(res))
-};
+  };
+
+  useEffect(() => {
+    axios.get('http://131.159.213.251:8000/api/todo')
+      .then(res => {
+        setTodoList(res.data)
+      })
+  });
+
 
   const [bigChartData, setbigChartData] = React.useState("data1");
   const setBgChartData = (name) => {
@@ -224,22 +225,22 @@ function Dashboard(props) {
                   <Tab eventKey="buy" title="Buy">
                   <Form.Group className="mb-3" controlId="stockID">
                     <Form.Label>Stock ID</Form.Label>
-                    <Form.Control type="text" placeholder="enter the stock" />
+                    <Form.Control type="text" placeholder="enter stock name" list="data" />
                     <Form.Label>Bid</Form.Label>
-                    <Form.Control type="text" placeholder="enter your bidding price" />
+                    <Form.Control type="text" placeholder="enter bidding price" />
                     <Form.Label>Quantity</Form.Label>
-                    <Form.Control type="text" placeholder="enter the quantity" />
+                    <Form.Control type="text" placeholder="enter order quantity" />
                     <Button>Issue Buying Order</Button>
                   </Form.Group>
                   </Tab>
                   <Tab eventKey="sell" title="Sell">
                   <Form.Group className="mb-3" controlId="stockID">
                     <Form.Label>Stock ID</Form.Label>
-                    <Form.Control type="text" placeholder="enter the stock" />
+                    <Form.Control type="text" placeholder="enter the stock" onChange={event => setTitle(event.target.value)}/>
                     <Form.Label>Ask</Form.Label>
-                    <Form.Control type="text" placeholder="enter your asking price" onChange={event => setTitle(event.target.value)}/>
+                    <Form.Control type="text" placeholder="enter your asking price" />
                     <Form.Label>Quantity</Form.Label>
-                    <Form.Control type="text" placeholder="enter the quantity"  onChange={event => setDesc(event.target.value)}/>
+                    <Form.Control type="text" placeholder="enter the quantity" onChange={event => setDesc(event.target.value)}/>
                     <Button onClick={addTodoHandler}>Issue Selling Order</Button>
                   </Form.Group>
                   </Tab>
@@ -281,11 +282,7 @@ function Dashboard(props) {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>IBM</td>
-                      <td>$10,67</td>
-                      <td>100</td>
-                    </tr>
+                    <TodoView todoList={todoList} />
                   </tbody>
                 </Table>
               </CardBody>
