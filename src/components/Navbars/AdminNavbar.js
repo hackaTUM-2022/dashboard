@@ -118,27 +118,27 @@ function AdminNavbar(props) {
                 <DropdownMenu className="dropdown-navbar" right tag="ul">
                   <NavLink tag="li">
                     <DropdownItem className="nav-item">
-                      Mike John responded to your email
+                      Twitter Inc. ($TWTR) just went private
                     </DropdownItem>
                   </NavLink>
                   <NavLink tag="li">
                     <DropdownItem className="nav-item">
-                      You have 5 more tasks
+                      Elon Musk buyout Twitter Inc. ($TWTR)
                     </DropdownItem>
                   </NavLink>
                   <NavLink tag="li">
                     <DropdownItem className="nav-item">
-                      Your friend Michael is in town
+                      U.S. FED announced rate hikes
                     </DropdownItem>
                   </NavLink>
                   <NavLink tag="li">
                     <DropdownItem className="nav-item">
-                      Another notification
+                      Twitter sues Elon Musk
                     </DropdownItem>
                   </NavLink>
                   <NavLink tag="li">
                     <DropdownItem className="nav-item">
-                      Another one
+                      Crypto Markets crashed
                     </DropdownItem>
                   </NavLink>
                 </DropdownMenu>
