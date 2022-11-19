@@ -3,11 +3,11 @@
 import axios from 'axios'
 import React from 'react'
 
-function TodoItem(props) {
-    const deleteTodoHandler = (title) => {
+function StockItem(props) {
+   /* const deleteTodoHandler = (title) => {
     axios.delete(`http://localhost:8000/api/todo/${title}`)
         .then(res => console.log(res.data)) }
-  
+  */
     return (
         /**<div>
             <p>
@@ -18,11 +18,11 @@ function TodoItem(props) {
             </p>
         </div>**/
         <tr>
-            <td>{props.todo.title}</td>
-            <td>$0,00</td>
-            <td>{props.todo.description}</td>
+            <td>{props.stock.name}</td>
+            <td>{props.stock.price}</td>
+            <td>{props.stock.qty}</td>
         </tr>
     )
 }
 
-export default TodoItem;
+export default StockItem;

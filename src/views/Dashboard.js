@@ -24,7 +24,7 @@ import Form from 'react-bootstrap/Form';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import axios from 'axios';
-import TodoView from '../components/TodoListView';
+import StockView from '../components/StockListView';
 
 
 // reactstrap components
@@ -49,22 +49,38 @@ import {
 } from "variables/charts.js";
 
 function Dashboard(props) {
-  const [todoList, setTodoList] = useState([{}])
-  const [title, setTitle] = useState('') 
-  const [desc, setDesc] = useState('')
+  const [stockList, setStockList] = useState([{}])
+  const [pendingList, setPendingList] = useState([{}])
+  const [name, setName] = useState('')
+  const [qty, setQty] = useState(0.0)
+  const [price, setPrice] = useState(0.0)
+  const [user, setUser] = useState('')
 
-  // Post a todo
-  const addTodoHandler = () => {
-    axios.post('http://131.159.213.251:8000/api/todo/', { 'title': title, 'description': desc })
+  // Post a Stock
+  const addStockHandler = () => {
+    axios.post('http://131.159.213.251:8000/api/stock', { 'name': name, 'price': price, 'qty': qty, 'user' : 'me' })
       .then(res => console.log(res))
   };
 
-  useEffect(() => {
-    axios.get('http://131.159.213.251:8000/api/todo')
+  // Post an order
+  const addOrderHandlerBuy = () => {
+    axios.post('http://131.159.213.251:8000/api/order', { 'name': name, 'side' : 'BUY', 'qty': qty, 'price': price, 'customer' : 'me' })
+      .then(res => console.log(res));
+      getHandler();
+  };
+
+  const addOrderHandlerSell = () => {
+    axios.post('http://131.159.213.251:8000/api/order', { 'name': name, 'side' : 'SELL' ,'qty': qty, 'price': price, 'customer' : 'me' })
+      .then(res => console.log(res));
+      getHandler();
+  };
+
+  const getHandler = () => {
+    axios.get('http://131.159.213.251:8000/api/order')
       .then(res => {
-        setTodoList(res.data)
+        setPendingList(res.data)
       })
-  });
+  };
 
 
   const [bigChartData, setbigChartData] = React.useState("data1");
@@ -224,24 +240,23 @@ function Dashboard(props) {
                 >
                   <Tab eventKey="buy" title="Buy">
                   <Form.Group className="mb-3" controlId="stockID">
-                    <Form.Label>Stock ID</Form.Label>
-                    <Form.Control type="text" placeholder="enter stock name" list="data" />
-                    <Form.Label>Bid</Form.Label>
-                    <Form.Control type="text" placeholder="enter bidding price" />
+                  <Form.Control type="text" placeholder="enter the stock" onChange={event => setName(event.target.value)}/>
+                    <Form.Label>Ask</Form.Label>
+                    <Form.Control type="text" placeholder="enter your asking price" onChange={event => setPrice(event.target.value)}/>
                     <Form.Label>Quantity</Form.Label>
-                    <Form.Control type="text" placeholder="enter order quantity" />
-                    <Button>Issue Buying Order</Button>
+                    <Form.Control type="text" placeholder="enter the quantity" onChange={event => setQty(event.target.value)}/>
+                    <Button onClick={addOrderHandlerBuy}>Issue Buying Order</Button>
                   </Form.Group>
                   </Tab>
                   <Tab eventKey="sell" title="Sell">
                   <Form.Group className="mb-3" controlId="stockID">
-                    <Form.Label>Stock ID</Form.Label>
-                    <Form.Control type="text" placeholder="enter the stock" onChange={event => setTitle(event.target.value)}/>
+                  <Form.Label>Stock ID</Form.Label>
+                    <Form.Control type="text" placeholder="enter the stock" onChange={event => setName(event.target.value)}/>
                     <Form.Label>Ask</Form.Label>
-                    <Form.Control type="text" placeholder="enter your asking price" />
+                    <Form.Control type="text" placeholder="enter your asking price" onChange={event => setPrice(event.target.value)}/>
                     <Form.Label>Quantity</Form.Label>
-                    <Form.Control type="text" placeholder="enter the quantity" onChange={event => setDesc(event.target.value)}/>
-                    <Button onClick={addTodoHandler}>Issue Selling Order</Button>
+                    <Form.Control type="text" placeholder="enter the quantity" onChange={event => setQty(event.target.value)}/>
+                    <Button onClick={addOrderHandlerSell}>Issue Selling Order</Button>
                   </Form.Group>
                   </Tab>
                 </Tabs>
@@ -282,7 +297,7 @@ function Dashboard(props) {
                     </tr>
                   </thead>
                   <tbody>
-                    <TodoView todoList={todoList} />
+                    <StockView stockList={pendingList} />
                   </tbody>
                 </Table>
               </CardBody>
