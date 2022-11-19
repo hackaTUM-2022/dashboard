@@ -98,7 +98,7 @@ function FixedPlugin(props) {
               block
               className="btn-round"
               outline
-              href="/docs/"
+              href="https://github.com/hackaTUM-2022/farmproject/blob/main/README.md"
             >
               Documentation
             </Button>
