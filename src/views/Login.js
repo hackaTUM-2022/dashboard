@@ -13,10 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
-import { Navbar, Nav } from 'react-bootstrap';
-import Dashboard from './Dashboard';
-import {  useState } from "react";
-import { BrowserRouter as Router, Switch,Route,Navigate, Redirect } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 
 function Copyright(props) {
   return (
@@ -34,26 +31,20 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Login() {
-  const [loggedIn, setLoggedIn ] = useState(false)
+  const history = useHistory();
 
-  const handleSubmit = (event) => {
+ const handleSubmit = (event) => {
     const data = new FormData(event.currentTarget);
-    axios.post('http://131.159.213.251:8000/api/login', { 'username': data.get('username'), 'password': data.get('password') })
-    .then(res => setLoggedIn(res.status == 200));
-    }
 
+    axios.post('http://131.159.213.251:8000/api/login', { 'username': data.get('username'), 'password': data.get('password') })
+    .then(
+      history.push({
+        pathname: '/admin/dashboard',
+        search: '/' + data.get('username'),
+        state: { detail: data.get('username') }
+    }))}
   return (
-    <>
-    <Router>
-    <Switch>
-      <Route
-        exact
-        path="/"
-        element={loggedIn ? <Dashboard /> : <Redirect from={"/admin/login"} to={"/"} />}
-      />
-    </Switch>
-  </Router>
-    <ThemeProvider theme={theme}>
+    (<ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -76,7 +67,7 @@ export default function Login() {
               required
               fullWidth
               id="username"
-              label="Username"
+              label="username"
               name="username"
               autoComplete="username"
               autoFocus
@@ -86,7 +77,7 @@ export default function Login() {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="password"
               type="password"
               id="password"
               autoComplete="current-password"
@@ -119,6 +110,5 @@ export default function Login() {
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
-    </ThemeProvider>
-    </>
-  )};
+    </ThemeProvider>)
+        )};

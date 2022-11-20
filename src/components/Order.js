@@ -20,6 +20,7 @@ function StockItem(props) {
             <td>{props.stock.name}</td>
             <td>{props.stock.price}</td>
             <td>{props.stock.qty}</td>
+            <td>{props.stock.side}</td>
         </tr>
     )
 }

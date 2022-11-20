@@ -25,6 +25,8 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import axios from 'axios';
 import StockView from '../components/StockListView';
+import OrderView from "components/OrderListView";
+import { useLocation } from "react-router-dom";
 
 
 // reactstrap components
@@ -47,6 +49,7 @@ import {
 
 function Dashboard(props) {
   const URL = "http://131.159.213.251:8000";
+  const location = useLocation();
 
   const [stockList, setStockList] = useState([{}])
   const [pendingList, setPendingList] = useState([{}])
@@ -54,27 +57,62 @@ function Dashboard(props) {
   const [qty, setQty] = useState(0.0)
   const [price, setPrice] = useState(0.0)
   const [user, setUser] = useState('')
+  const [detail, setDetail] = useState("")
+
+  function delay(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+  }
+
+  const doSetup = () => {
+    getAllStocksOfUserHandler();
+    getAllOrdersOfUserHandler();
+  }
+
+  useEffect(() => {
+    setUser(location.state.detail);
+  }, [location]);
 
   // Post a Stock
   const addStockHandler = () => {
-    axios.post(URL + '/api/stock', { 'name': name, 'price': price, 'qty': qty, 'user' : 'me' })
-      .then(res => console.log(res))
+    axios.post(URL + '/api/stock', { 'name': name, 'price': price, 'qty': qty, 'user' : user })
+      .then(res => console.log(res));
+  };
+
+  const addMatchingHandler = () => {
+    axios.post(URL + '/api/match', { 'buyer': "midas boi", 'seller': "suckerboi", "stockName": "IBM", "Id1": { "$oid": "63799b23345e5e6cbf5ee144" }, "Id2": { "$oid": "637997763d3cc62b85ae57a9" }, 'qty': "5", 'price' : "10"})
+      .then(res => console.log(res));
+  };  
+
+  const getAllStocksOfUserHandler = () => {
+    axios.get(URL + '/api/stock/' + user)
+    .then(res => {
+      setStockList(res.data)
+    })
+  };
+
+  const getAllOrdersOfUserHandler = () => {
+    axios.get(URL + '/api/order/' + user)
+    .then(res => {
+      setPendingList(res.data)
+    })
   };
 
   // Post an order
   const addOrderHandlerBuy = () => {
-    axios.post(URL + '/api/order', { 'name': name, 'side' : 'BUY', 'qty': qty, 'price': price, 'customer' : 'me' })
+    axios.post(URL + '/api/order', { 'name': name, 'side' : 'BUY', 'qty': qty, 'price': price, 'customer' : user })
       .then(res => console.log(res));
-      getHandler();
+      getAllStocksOfUserHandler();
+      getAllOrdersOfUserHandler();
   };
 
   const addOrderHandlerSell = () => {
-    axios.post(URL + '/api/order', { 'name': name, 'side' : 'SELL' ,'qty': qty, 'price': price, 'customer' : 'me' })
+    axios.post(URL + '/api/order', { 'name': name, 'side' : 'SELL' ,'qty': qty, 'price': price, 'customer' : user })
       .then(res => console.log(res));
-      getHandler();
+      getAllStocksOfUserHandler();
+      getAllOrdersOfUserHandler();
   };
 
-  const getHandler = () => {
+  const getAllPendingHandler = () => {
     axios.get(URL + '/api/order')
       .then(res => {
         setPendingList(res.data)
@@ -110,47 +148,13 @@ function Dashboard(props) {
                         color="info"
                         id="0"
                         size="sm"
-                        onClick={() => setBgChartData("data1")}
+                        onClick={doSetup}
                       >
                         <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                          Accounts
+                          Refresh Transactions
                         </span>
                         <span className="d-block d-sm-none">
                           <i className="tim-icons icon-single-02" />
-                        </span>
-                      </Button>
-                      <Button
-                        color="info"
-                        id="1"
-                        size="sm"
-                        tag="label"
-                        className={classNames("btn-simple", {
-                          active: bigChartData === "data2"
-                        })}
-                        onClick={() => setBgChartData("data2")}
-                      >
-                        <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                          Purchases
-                        </span>
-                        <span className="d-block d-sm-none">
-                          <i className="tim-icons icon-gift-2" />
-                        </span>
-                      </Button>
-                      <Button
-                        color="info"
-                        id="2"
-                        size="sm"
-                        tag="label"
-                        className={classNames("btn-simple", {
-                          active: bigChartData === "data3"
-                        })}
-                        onClick={() => setBgChartData("data3")}
-                      >
-                        <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                          Sessions
-                        </span>
-                        <span className="d-block d-sm-none">
-                          <i className="tim-icons icon-tap-02" />
                         </span>
                       </Button>
                     </ButtonGroup>
@@ -175,7 +179,7 @@ function Dashboard(props) {
             <Card className="card-tasks">
               <CardBody>
               <h4>
-                Register Orders
+                Create Orders
               </h4>
                 <Tabs
                   defaultActiveKey="buy"
@@ -203,6 +207,19 @@ function Dashboard(props) {
                     <Button onClick={addOrderHandlerSell}>Issue Selling Order</Button>
                   </Form.Group>
                   </Tab>
+                  <Tab eventKey="addStock" title="Add stock">
+                  <Form.Group className="mb-3" controlId="stockID">
+                  <Form.Label>Stock ID</Form.Label>
+                    <Form.Control type="text" placeholder="enter the stock" onChange={event => setName(event.target.value)}/>
+                    <Form.Label>Ask</Form.Label>
+                    <Form.Control type="text" placeholder="enter your asking price" onChange={event => setPrice(event.target.value)}/>
+                    <Form.Label>Quantity</Form.Label>
+                    <Form.Control type="text" placeholder="enter the quantity" onChange={event => setQty(event.target.value)}/>
+                    <Form.Label>Owner</Form.Label>
+                    <Form.Control type="text" placeholder="enter the quantity" onChange={event => setUser(event.target.value)}/>
+                    <Button onClick={addMatchingHandler}>Issue Selling Order</Button>
+                  </Form.Group>
+                  </Tab>
                 </Tabs>
               </CardBody>
             </Card>
@@ -222,26 +239,23 @@ function Dashboard(props) {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>IBM</td>
-                      <td>$11.56</td>
-                      <td>10</td>
-                    </tr>
+                    <StockView  stockList={stockList} />
                   </tbody>
                 </Table>
                 <h4>
-                Pending Orders
-              </h4>
+                    Pending Orders
+                </h4>
                 <Table className="tablesorter" responsive>
                   <thead className="text-primary">
                     <tr>
                       <th>Name</th>
-                      <th>Est. Value</th>
+                      <th>Offer</th>
                       <th>Quantity</th>
+                      <th>Side</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <StockView  stockList={pendingList} />
+                    <OrderView  stockList={pendingList} />
                   </tbody>
                 </Table>
               </CardBody>

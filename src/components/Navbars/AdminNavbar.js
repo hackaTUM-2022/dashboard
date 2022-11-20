@@ -43,6 +43,7 @@ function AdminNavbar(props) {
   const [collapseOpen, setcollapseOpen] = React.useState(false);
   const [modalSearch, setmodalSearch] = React.useState(false);
   const [color, setcolor] = React.useState("navbar-transparent");
+  const [searchTerm, setSearchTerm] = React.useState("")
   React.useEffect(() => {
     window.addEventListener("resize", updateColor);
     // Specify how to clean up after this effect:
@@ -50,6 +51,10 @@ function AdminNavbar(props) {
       window.removeEventListener("resize", updateColor);
     };
   });
+
+  const searchHandler = () => {
+
+  } 
   // function that adds color white/transparent to the navbar on resize (this is for the collapse)
   const updateColor = () => {
     if (window.innerWidth < 993 && collapseOpen) {
@@ -178,6 +183,7 @@ function AdminNavbar(props) {
         modalClassName="modal-search"
         isOpen={modalSearch}
         toggle={toggleModalSearch}
+        onSubmit={searchHandler}
       >
         <ModalHeader>
           <Input placeholder="SEARCH" type="text" />
