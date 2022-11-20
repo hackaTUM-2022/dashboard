@@ -1,12 +1,16 @@
 /* Form controls */
 @include form-control-placeholder(#6c757c, 1);
 
+.form-label {
+  margin: 10px;
+}
+
 .form-control{
   border-color: lighten($black,5%);
   border-radius: $border-radius-lg;
   font-size: $font-size-sm;
   @include transition-input-focus-color();
-
+  margin: 5px;
 
   &:focus{
     border-color: $primary;

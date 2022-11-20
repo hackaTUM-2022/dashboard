@@ -1,25 +1,3 @@
-/*!
-
-=========================================================
-* Black Dashboard React v1.2.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/black-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-// ##############################
-// // // Chart variables
-// #############################
-
-// chartExample1 and chartExample2 options
 let chart1_2_options = {
   maintainAspectRatio: false,
   legend: {
@@ -100,7 +78,7 @@ let chartExample1 = {
       ],
       datasets: [
         {
-          label: "My First dataset",
+          label: "Annual Report",
           fill: true,
           backgroundColor: gradientStroke,
           borderColor: "#1f8ef1",
@@ -145,7 +123,7 @@ let chartExample1 = {
       ],
       datasets: [
         {
-          label: "My First dataset",
+          label: "Annual Report",
           fill: true,
           backgroundColor: gradientStroke,
           borderColor: "#1f8ef1",
@@ -190,7 +168,7 @@ let chartExample1 = {
       ],
       datasets: [
         {
-          label: "My First dataset",
+          label: "Annual Report",
           fill: true,
           backgroundColor: gradientStroke,
           borderColor: "#1f8ef1",
@@ -347,7 +325,7 @@ const chartExample4 = {
       labels: ["JUL", "AUG", "SEP", "OCT", "NOV"],
       datasets: [
         {
-          label: "My First dataset",
+          label: "Annual Report",
           fill: true,
           backgroundColor: gradientStroke,
           borderColor: "#00d6b4",
