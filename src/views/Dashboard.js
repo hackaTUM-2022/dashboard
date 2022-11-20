@@ -62,7 +62,7 @@ function Dashboard(props) {
   };
 
   const addMatchingHandler = () => {
-    axios.post(URL + '/api/match', { 'buyer': "midas boi", 'seller': "suckerboi", "stockName": "IBM", "Id1": { "$oid": "63799b23345e5e6cbf5ee144" }, "Id2": { "$oid": "637997763d3cc62b85ae57a9" }, 'qty': "5", 'price' : "10"})
+    axios.post(URL + '/api/match/'+ {"name": "ibm", "side": "BUY", "qty": "5", "price": "10", "customer": "suckerboi"} )
       .then(res => console.log(res));
   };  
 
