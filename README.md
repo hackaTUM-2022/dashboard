@@ -1,12 +1,12 @@
 # hackaTUM Exchange Web Platform (Frontend)
-# Demo
+## Demo
 <img width="1440" alt="hackaTUM Exchange Demo" src="https://user-images.githubusercontent.com/90095481/203121133-78627b38-186f-4690-9fc7-237719c09af5.png">
 
-# Requirements
+## Requirements
 - [Node](https://nodejs.org/en/)
 - [npm](https://www.npmjs.com/)
 
-## If you are an on Linux - You can install it using nvm
+### If you are an on Linux - You can install it using nvm
 ```bash
 # nvm install
 $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.3/install.sh | bash
@@ -24,7 +24,7 @@ $ chmod -R 755 $n/bin/*
 $ sudo cp -r $n/{bin,lib,share} /usr/local 
 ```
 
-## How to use with farmproject (backend)
+### How to use with farmproject (backend)
 
 Within the download you'll find the following directories and files:
 
