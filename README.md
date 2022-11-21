@@ -1,10 +1,10 @@
-# Responsive Dashboard React
+# hackaTUM Exchange Web Platform (Frontend)
 # Demo
-<img width="1440" alt="demo" src="https://user-images.githubusercontent.com/90095481/203121133-78627b38-186f-4690-9fc7-237719c09af5.png">
+<img width="1440" alt="hackaTUM Exchange Demo" src="https://user-images.githubusercontent.com/90095481/203121133-78627b38-186f-4690-9fc7-237719c09af5.png">
 
 # Requirements
-- Node[https://nodejs.org/en/]
-- npm [https://www.npmjs.com/]
+- [Node](https://nodejs.org/en/)
+- [npm](https://www.npmjs.com/)
 
 ## If you are an on Linux - You can install it using nvm
 ```bash
@@ -24,7 +24,7 @@ $ chmod -R 755 $n/bin/*
 $ sudo cp -r $n/{bin,lib,share} /usr/local 
 ```
 
-## How to use with farmproject
+## How to use with farmproject (backend)
 
 Within the download you'll find the following directories and files:
 
@@ -45,5 +45,6 @@ $ npm start
 
 ## Licensing
 
-- Copyright 2022 Creative Tim (https://www.creative-tim.com)
-- Licensed under MIT (https://github.com/creativetimofficial/black-dashboard-react/blob/master/LICENSE.md)
+- Copyright 2022 [hackaTUM Exchange team](https://github.com/orgs/hackaTUM-2022/people) (Final product)
+- Copyright 2022 [Creative Tim](https://www.creative-tim.com) (React template)
+- Licensed under [MIT](https://github.com/creativetimofficial/black-dashboard-react/blob/master/LICENSE.md)
